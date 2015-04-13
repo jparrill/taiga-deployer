@@ -1,0 +1,18 @@
+---
+- name: Create Taiga group
+  group: name=taiga state=present 
+  sudo: yes
+
+- name: Create Taiga User
+  user: name=taiga group=taiga password=taiga createhome=yes state=present
+  sudo: yes
+
+- name: Taiga create PG_user
+  shell: createuser taiga
+  sudo: yes
+  sudo_user: postgres
+
+- name: Taiga createDB
+  shell: createdb taiga -O taiga
+  sudo: yes
+  sudo_user: postgres

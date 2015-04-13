@@ -1,4 +1,16 @@
 ---
 - name: clean packages
   action: shell /usr/bin/yum clean all
-  sudo: yes 
+  sudo: yes
+
+- name: Postgresql initdb
+  shell: /usr/pgsql-9.3/bin/postgresql93-setup initdb
+  sudo: yes
+
+- name: Postgresql enabledb
+  shell: /bin/systemctl enable postgresql-9.3.service
+  sudo: yes
+
+- name: Postgresql startdb
+  shell: /bin/systemctl start postgresql-9.3.service
+  sudo: yes

@@ -21,6 +21,10 @@
     - postgresql93-docs
     - postgresql93-server
     - postgresql93-devel
+  notify:
+    - Postgresql initdb
+    - Postgresql enabledb
+    - Postgresql startdb
   sudo: yes
 
 - name: Install Development tools and dependencies
@@ -46,3 +50,5 @@
     - libxml2-devel
     - libxslt-devel
   sudo: yes
+  
+- meta: flush_handlers
