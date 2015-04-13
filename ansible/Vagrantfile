@@ -7,20 +7,27 @@ VAGRANTFILE_API_VERSION = "2"
 
 BOX_MEM = ENV['BOX_MEM'] || "1024"
 BOX_CORE = ENV['BOX_CORE'] || "1"
-BOX_NAME =  ENV['BOX_NAME'] || "puppetlabs/centos-7.0-64-puppet"
+BOX_NAME =  ENV['BOX_NAME'] || "CentOS6.5"
+BOX_URI = ENV['BOX_URI'] || "https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box"
 
 Vagrant.require_version ">= 1.5"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |taiga|
-  taiga.vm.box = BOX_NAME
-  taiga.vm.provider "virtualbox" do |v|
-    v.customize ["modifyvm", :id, "--memory", BOX_MEM]
-    v.customize ["modifyvm", :id, "--ioapic", "on"]
-    v.customize ["modifyvm", :id, "--cpus", BOX_CORE]
-    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-    v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
-  end
-  taiga.vm.network "forwarded_port", guest: 80, host: 8080
-  taiga.vm.network "forwarded_port", guest: 443, host: 8443
-  taiga.vm.network "private_network", ip: "192.168.33.10"
+    taiga.vm.box = BOX_NAME
+    taiga.vm.provider "virtualbox" do |v|
+        v.customize ["modifyvm", :id, "--memory", BOX_MEM]
+        v.customize ["modifyvm", :id, "--ioapic", "on"]
+        v.customize ["modifyvm", :id, "--cpus", BOX_CORE]
+        v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+    end
+    taiga.vm.network "forwarded_port", guest: 80, host: 8080
+    taiga.vm.network "forwarded_port", guest: 443, host: 8443
+    taiga.vm.network "private_network", ip: "192.168.33.10"
+    taiga.vm.provision "ansible" do |ansible|
+        ansible.playbook = "site.yml"
+        ansible.limit = "vagrant"
+        ansible.inventory_path = "hosts"
+        #ansible.verbose = "v"
+    end
 end

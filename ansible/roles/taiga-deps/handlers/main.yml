@@ -1,0 +1,4 @@
+---
+- name: clean packages
+  action: shell /usr/bin/yum clean all
+  sudo: yes 

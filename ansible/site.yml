@@ -1,0 +1,7 @@
+---
+-   name: Vagrant Taiga Deploy
+    hosts: vagrant
+    roles:
+        - role: taiga-deps
+        #- role: taiga-backend
+        #- role: taiga-front

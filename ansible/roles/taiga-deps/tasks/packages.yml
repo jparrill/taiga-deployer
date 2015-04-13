@@ -1,0 +1,48 @@
+---
+- name: Install Postgresql Repository
+  yum: name=http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/pgdg-redhat93-9.3-1.noarch.rpm state=present
+  notify: 
+    - clean packages
+  sudo: yes
+
+- name: Install EPEL Repository
+  yum: name=epel-release state=latest
+  notify: 
+    - clean packages
+  sudo: yes
+
+- meta: flush_handlers
+
+- name: Install Postgresql Packages
+  yum: name={{item}} state=latest
+  with_items:
+    - postgresql93
+    - postgresql93-contrib
+    - postgresql93-docs
+    - postgresql93-server
+    - postgresql93-devel
+  sudo: yes
+
+- name: Install Development tools and dependencies
+  yum: name="@Development tools" state=present
+  sudo: yes
+
+- name: Install Taiga dependencies
+  yum: name={{item}} state=present
+  with_items:
+    - zlib-devel
+    - bzip2-devel
+    - openssl-devel
+    - ncurses-devel
+    - sqlite-devel
+    - readline-devel
+    - tk-devel
+    - gdbm-devel
+    - db4-devel
+    - libpcap-devel
+    - xz-devel
+    - python-devel
+    - tmux
+    - libxml2-devel
+    - libxslt-devel
+  sudo: yes
