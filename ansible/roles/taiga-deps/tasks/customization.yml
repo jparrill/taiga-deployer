@@ -41,3 +41,11 @@
     - source taiga bash_profile
 
 - meta: flush_handlers
+
+- easy_install: name=pip
+  sudo: yes
+
+- pip: name=virtualenv
+  sudo: yes
+
+

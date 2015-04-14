@@ -1,1 +1,23 @@
 ---
+- name: Make Taiga Virtualenv
+  shell: virtualenv -p python3.4 .virtualenv
+  sudo: yes
+  args:
+    chdir: /home/taiga/taiga-back/
+    sudo_user: taiga
+    creates: /home/taiga/taiga-back/.virtualenv
+
+- name: Deploy Taiga Source Code
+  git: repo=https://github.com/taigaio/taiga-back.git dest=/home/taiga/taiga-back version=stable
+  sudo: yes
+  sudo_user: taiga
+
+- name: Create Taiga PG User
+  postgresql_user: db=taiga name=taiga password=taiga
+  sudo: yes
+  sudo_user: postgres
+
+- name: Create Taiga DB
+  postgresql_db: name=acme owner=taiga  
+  sudo: yes
+  sudo_user: postgres
