@@ -49,6 +49,7 @@
     - tmux
     - libxml2-devel
     - libxslt-devel
+    - nginx
   sudo: yes
   
 - meta: flush_handlers

@@ -7,12 +7,37 @@
   user: name=taiga group=taiga password=taiga createhome=yes state=present
   sudo: yes
 
-- name: Taiga create PG_user
-  shell: createuser taiga
+- name: Download Python
+  get_url: 
+    url=https://www.python.org/ftp/python/3.4.1/Python-3.4.1.tar.xz
+    dest=/opt/Python-3.4.1.tar.xz
+    mode=0644
   sudo: yes
-  sudo_user: postgres
 
-- name: Taiga createDB
-  shell: createdb taiga -O taiga
+- name: Extract Python
+  shell: tar xf Python-3.4.1.tar.xz
   sudo: yes
-  sudo_user: postgres
+  args:
+    chdir: /opt/
+    creates: /opt/Python-3.4.1/
+
+- name: Configure Python compilation and compile
+  shell: ./configure --prefix=/usr/local-enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib" && make && make altinstall
+  sudo: yes
+  args:
+    chdir: /opt/Python-3.4.1/
+    creates: /usr/local-enable-shared/bin/python3.4
+
+- name: Root bash_profile
+  template: src=bash_profile dest=/root/.bash_profile owner=root group=root
+  sudo: yes
+  notify:
+    - source root bash_profile
+
+- name: Taiga bash_profile
+  template: src=bash_profile dest=/home/taiga/.bash_profile owner=taiga group=taiga
+  sudo: yes
+  notify:
+    - source taiga bash_profile
+
+- meta: flush_handlers

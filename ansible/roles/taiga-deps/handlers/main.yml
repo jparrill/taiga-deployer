@@ -14,3 +14,12 @@
 - name: Postgresql startdb
   shell: /bin/systemctl start postgresql-9.3.service
   sudo: yes
+
+- name: source root bash_profile
+  shell: source /root/.bash_profile
+  sudo: yes
+
+- name: source taiga bash_profile
+  shell: source /home/taiga/.bash_profile
+  sudo: yes
+  sudo_user: taiga

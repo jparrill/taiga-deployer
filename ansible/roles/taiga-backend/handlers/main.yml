@@ -1,0 +1,10 @@
+---
+- name: Create Taiga PG User
+  postgresql_user: db=taiga name=taiga password=taiga
+  sudo: yes
+  sudo_user: postgres
+
+- name: Create Taiga DB
+  postgresql_db: name=acme owner=taiga  
+  sudo: yes
+  sudo_user: postgres
