@@ -50,6 +50,7 @@
     - libxml2-devel
     - libxslt-devel
     - nginx
+    - git
   sudo: yes
   
 - meta: flush_handlers

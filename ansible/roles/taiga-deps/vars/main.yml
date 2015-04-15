@@ -1,2 +1,0 @@
-PATH: $PATH:$HOME/bin:/usr/pgsql9.3/bin:/usr/local-enable-shared/bin
-LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local-enable-shared/lib/
