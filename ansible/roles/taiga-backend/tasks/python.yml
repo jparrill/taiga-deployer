@@ -5,7 +5,7 @@
   sudo_user: taiga
 
 - name: Make Taiga Virtualenv
-  shell: source /home/taiga/.bash_profile && virtualenv -p python3.4 .virtualenv
+  shell: virtualenv -p python3.4 .virtualenv
   sudo: yes
   args:
     chdir: /home/taiga/taiga-back/
