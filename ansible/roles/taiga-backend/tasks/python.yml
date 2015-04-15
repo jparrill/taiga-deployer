@@ -15,6 +15,10 @@
     PATH: /bin:/usr/local-enable-shared/bin
     LD_LIBRARY_PATH: /usr/local-enable-shared/lib/
 
+- name: fixing permission
+  file: path=/home/taiga/taiga-back/.virtualenv owner=taiga group=taiga mode=0755 recurse=yes
+  sudo: yes
+
 - pip: requirements=/home/taiga/taiga-back/requirements.txt virtualenv=/home/taiga/taiga-back/.virtualenv
   sudo: yes
   sudo_user: taiga
