@@ -26,6 +26,14 @@
     PATH: /bin:/usr/pgsql-9.3/bin:/usr/local-enable-shared/bin
     LD_LIBRARY_PATH: /usr/local-enable-shared/lib/
 
+- name: Create Taiga DB
+  postgresql_db: name=taiga
+  sudo: yes
+  sudo_user: postgres
+  environment:
+    PATH: /bin:/usr/pgsql-9.3/bin:/usr/local-enable-shared/bin
+    LD_LIBRARY_PATH: /usr/local-enable-shared/lib/
+
 - name: Create Taiga PG User
   postgresql_user: db=taiga name=taiga password=taiga
   sudo: yes
@@ -34,10 +42,3 @@
     PATH: /bin:/usr/pgsql-9.3/bin:/usr/local-enable-shared/bin
     LD_LIBRARY_PATH: /usr/local-enable-shared/lib/
 
-- name: Create Taiga DB
-  postgresql_db: name=acme owner=taiga  
-  sudo: yes
-  sudo_user: postgres
-  environment:
-    PATH: /bin:/usr/pgsql-9.3/bin:/usr/local-enable-shared/bin
-    LD_LIBRARY_PATH: /usr/local-enable-shared/lib/

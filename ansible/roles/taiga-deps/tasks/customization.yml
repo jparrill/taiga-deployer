@@ -45,7 +45,12 @@
 - easy_install: name=pip
   sudo: yes
 
-- pip: name=virtualenv
+- pip: name={{item}}
   sudo: yes
+  with_items:
+    - virtualenv
+    - psycopg2
+  environment:
+    PATH: /bin:/usr/pgsql-9.3/bin
 
 
