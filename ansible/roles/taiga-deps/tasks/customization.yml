@@ -35,7 +35,7 @@
     - source root bash_profile
 
 - name: Taiga bash_profile
-  template: src=bash_profile dest=/home/taiga/.bash_profile owner=taiga group=taiga
+  template: src=bash_profile dest={{ taiga_path }}/.bash_profile owner=taiga group=taiga
   sudo: yes
   notify:
     - source taiga bash_profile

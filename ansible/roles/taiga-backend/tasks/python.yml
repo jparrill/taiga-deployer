@@ -1,6 +1,6 @@
 ---
 - name: Deploy Taiga Source Code
-  git: repo=https://github.com/taigaio/taiga-back.git dest=/home/taiga/taiga-back version=stable
+  git: repo=https://github.com/taigaio/taiga-back.git dest={{ backend_path }} version=stable
   sudo: yes
   sudo_user: taiga
 
@@ -8,18 +8,18 @@
   shell: virtualenv -p python3.4 .virtualenv
   sudo: yes
   args:
-    chdir: /home/taiga/taiga-back/
+    chdir: "{{ backend_path }}"
     sudo_user: taiga
-    creates: /home/taiga/taiga-back/.virtualenv
+    creates: "{{ virtualenv_dir }}"
   environment:
     PATH: /bin:/usr/local-enable-shared/bin
     LD_LIBRARY_PATH: /usr/local-enable-shared/lib/
 
 - name: fixing permission
-  file: path=/home/taiga/taiga-back/.virtualenv owner=taiga group=taiga mode=0755 recurse=yes
+  file: path={{ backend_path }}/.virtualenv owner=taiga group=taiga mode=0755 recurse=yes
   sudo: yes
 
-- pip: requirements=/home/taiga/taiga-back/requirements.txt virtualenv=/home/taiga/taiga-back/.virtualenv
+- pip: requirements={{ backend_path }}/requirements.txt virtualenv={{ backend_path }}/.virtualenv
   sudo: yes
   sudo_user: taiga
   environment:
@@ -41,4 +41,3 @@
   environment:
     PATH: /bin:/usr/pgsql-9.3/bin:/usr/local-enable-shared/bin
     LD_LIBRARY_PATH: /usr/local-enable-shared/lib/
-
