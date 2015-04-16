@@ -1,0 +1,19 @@
+---
+- name: Taiga Settings file
+  template: src=local.py dest={{ backend_path }}/settings/local.py owner=taiga group=taiga
+  sudo: yes
+
+- name: Migrate Taiga DB
+  django_manage: >
+    command=migrate
+    app_path={{ backend_path }}
+    virtualenv={{ virtualenv_dir }}
+  sudo: yes
+  sudo_user: taiga
+
+# - name: Migrate Taiga DB
+#   shell: source {{ virtualenv_dir }}/bin/activate && python {{ backend_path }}/manage.py migrate --noinput
+#   sudo: yes
+#   sudo_user: taiga
+#   environment:
+#     PATH: /bin:/usr/pgsql-9.3/bin:/home/taiga/taiga-back/.virtualenv/bin
