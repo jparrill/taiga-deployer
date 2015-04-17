@@ -11,9 +11,23 @@
   sudo: yes
   sudo_user: taiga
 
-# - name: Migrate Taiga DB
-#   shell: source {{ virtualenv_dir }}/bin/activate && python {{ backend_path }}/manage.py migrate --noinput
-#   sudo: yes
-#   sudo_user: taiga
-#   environment:
-#     PATH: /bin:/usr/pgsql-9.3/bin:/home/taiga/taiga-back/.virtualenv/bin
+- name: Installing fixtures into Taiga DB
+  django_manage: >
+    command=loaddata 
+    app_path={{ backend_path }} 
+    fixtures={{ item }}
+    virtualenv={{ virtualenv_dir }}
+  with_items:
+    - initial_user
+    - initial_project_templates
+    - initial_role 
+  sudo: yes
+  sudo_user: taiga
+
+- name: Making statics for Taiga Backend
+  django_manage: >
+    command=collectstatic 
+    app_path={{ backend_path }}
+    virtualenv={{ virtualenv_dir }}
+  sudo: yes
+  sudo_user: taiga
