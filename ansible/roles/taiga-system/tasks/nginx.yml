@@ -1,0 +1,12 @@
+---
+- name: Install Nginx Packages
+  yum: name=nginx state=latest
+  sudo: yes
+
+- name: Taiga Nginx Configuration
+  template: src=taiga.conf dest=/etc/nginx/conf.d/taiga.conf owner=root group=root
+  sudo: yes
+
+- name: Selinux context for Taiga
+  shell: semanage fcontext -a -t httpd_sys_content_t "/home/taiga(/.*)?"
+  sudo: yes

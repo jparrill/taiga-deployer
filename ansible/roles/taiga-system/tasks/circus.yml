@@ -1,0 +1,19 @@
+---
+- name: Taiga Logs folder
+  file: path={{ taiga_path }}/logs state=directory
+  sudo: yes
+  sudo_user: taiga
+
+- pip: name={{item}}
+  sudo: yes
+  with_items:
+    - circus
+
+- name: Circus ini config file
+  template: src=circus.ini dest={{ taiga_path }}/circus.ini owner=taiga group=taiga
+  sudo: yes
+  sudo_user: taiga
+
+- name: Circus main config file
+  template: src=circus.conf dest=/etc/init/circus.conf owner=root group=root
+  sudo: yes
