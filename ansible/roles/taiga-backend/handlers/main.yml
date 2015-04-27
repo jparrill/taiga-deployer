@@ -5,6 +5,6 @@
   sudo_user: postgres
 
 - name: Create Taiga DB
-  postgresql_db: name=acme owner=taiga  
+  postgresql_db: name=taiga owner=taiga
   sudo: yes
   sudo_user: postgres
