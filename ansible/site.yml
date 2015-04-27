@@ -4,4 +4,5 @@
     roles:
         - role: taiga-deps
         - role: taiga-backend
-        #- role: taiga-front
+        - role: taiga-frontend
+        - role: taiga-system
