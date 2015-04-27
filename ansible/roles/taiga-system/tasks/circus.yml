@@ -4,6 +4,10 @@
   sudo: yes
   sudo_user: taiga
 
+- name: Taiga Init folder
+  file: path=/etc/init state=directory
+  sudo: yes
+
 - pip: name={{item}}
   sudo: yes
   with_items:

@@ -7,6 +7,15 @@
   template: src=taiga.conf dest=/etc/nginx/conf.d/taiga.conf owner=root group=root
   sudo: yes
 
+- name: SElinux Packages
+  yum: name={{ item }} state=latest
+  sudo: yes
+  with_items:
+    - policycoreutils
+    - policycoreutils-python
+    - libselinux
+    - libselinux-utils 
+
 - name: Selinux context for Taiga
   shell: semanage fcontext -a -t httpd_sys_content_t "/home/taiga(/.*)?"
   sudo: yes
