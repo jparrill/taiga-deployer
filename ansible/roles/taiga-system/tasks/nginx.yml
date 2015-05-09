@@ -14,8 +14,12 @@
     - policycoreutils
     - policycoreutils-python
     - libselinux
-    - libselinux-utils 
+    - libselinux-utils
 
 - name: Selinux context for Taiga
   shell: semanage fcontext -a -t httpd_sys_content_t "/home/taiga(/.*)?"
   sudo: yes
+  notify:
+    - Selinux Taiga Restore
+
+- meta: flush_handlers

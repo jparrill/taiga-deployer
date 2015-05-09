@@ -1,1 +1,4 @@
 ---
+- name: Selinux Taiga Restore
+  shell: restorecon -vvFR {{ taiga_path }}
+  sudo: yes

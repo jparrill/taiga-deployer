@@ -1,3 +1,4 @@
 ---
 - include: circus.yml
 - include: nginx.yml
+- include: finish.yml
