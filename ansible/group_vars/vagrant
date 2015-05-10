@@ -1,0 +1,12 @@
+---
+PATH: /sbin:/bin:/usr/sbin:/usr/bin:/usr/pgsql-9.3/bin:/usr/local-enable-shared/bin
+LD_LIBRARY_PATH: /usr/local-enable-shared/lib/
+taiga_path: /home/taiga
+backend_path: "{{ taiga_path }}/taiga-back"
+frontend_path: "{{ taiga_path }}/taiga-front-dist"
+virtualenv_dir: "{{ backend_path }}/.virtualenv"
+
+## Setting
+host_fqdn: taiga.localdomain
+scheme: http
+port:8080
