@@ -1,6 +1,8 @@
 ---
 - stat: path={{ frontend_path }}/.git
   register: git_front
+  sudo_user: taiga
+  sudo: yes
 
 - name: Deploy Taiga-Frontend Source Code
   git: repo=https://github.com/taigaio/taiga-front-dist.git dest={{ frontend_path }} version=stable

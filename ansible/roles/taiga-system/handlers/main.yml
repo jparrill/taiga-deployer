@@ -6,3 +6,11 @@
 - name: Firewall Reload
   shell: firewall-cmd --reload
   sudo: yes
+
+- name: Start Circus
+  service: name=circus state=started enabled=yes
+  sudo: yes
+
+- name: Start Nginx
+  service: name=nginx state=started enabled=yes
+  sudo: yes
