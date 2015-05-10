@@ -1,0 +1,25 @@
+---
+- name: Taiga Home permissions
+  sudo: yes
+  file:
+    path={{ taiga_path }}
+    mode=775
+    owner=taiga
+    group=taiga
+    recurse=yes
+
+- name: Taiga group and nginx
+  user: name=taiga groups=taiga,nginx append=yes
+  sudo: yes
+
+- name: Nginx group and Taiga
+  user: name=nginx groups=nginx,taiga append=yes
+  sudo: yes
+
+- name: Taiga sudoer file
+  lineinfile: dest=/etc/sudoers.d/taiga owner=root group=root mode=0440
+              line="taiga ALL=(ALL) ALL"
+              state=present
+              create=yes
+              validate='visudo -cf %s'
+  sudo: yes
