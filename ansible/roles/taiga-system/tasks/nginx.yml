@@ -2,13 +2,11 @@
 - name: Install Nginx Packages
   yum: name=nginx state=latest
   sudo: yes
-  notify:
-    - Start Nginx
 
 - name: Taiga Nginx Configuration
   template: src=taiga.conf dest=/etc/nginx/conf.d/taiga.conf owner=root group=root
   sudo: yes
-
+  
 - name: SElinux Packages
   yum: name={{ item }} state=latest
   sudo: yes
@@ -24,6 +22,10 @@
   notify:
     - Firewall Reload
 
+- name: Selinux API port for Taiga
+  shell: semanage port -a -t http_port_t 8001 --proto tcp
+  sudo: yes
+
 - name: Selinux context for Taiga
   shell: semanage fcontext -a -t httpd_sys_content_t "/home/taiga(/.*)?"
   sudo: yes
@@ -33,5 +35,6 @@
   sudo: yes
   notify:
     - Selinux Taiga Restore
+    - Start Nginx
 
 - meta: flush_handlers
