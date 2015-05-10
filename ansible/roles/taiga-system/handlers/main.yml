@@ -7,9 +7,15 @@
   shell: firewall-cmd --reload
   sudo: yes
 
+
 - name: Start Circus
-  service: name=circus state=started enabled=yes
+  shell: /bin/circusd --daemon /home/taiga/circus.ini
   sudo: yes
+  sudo_user: taiga
+
+#- name: Start Circus
+#  service: name=circus state=started enabled=yes
+#  sudo: yes
 
 - name: Start Nginx
   service: name=nginx state=started enabled=yes

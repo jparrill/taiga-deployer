@@ -4,11 +4,12 @@ After=syslog.target
 After=network.target
 
 [Service]
-Type=simple
+Type=forking
 User=taiga
 Group=taiga
-ExecStart=/bin/circusd --daemon {{ taiga_path }}/circus.ini
-TimeoutSec=300
+ExecStart=/bin/circusd --daemon /home/taiga/circus.ini
+ExecReload=/bin/circusctl reload
+ExecStop=/bin/circusctl stop
 
 [Install]
 WantedBy=multi-user.target

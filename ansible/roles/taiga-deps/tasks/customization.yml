@@ -1,6 +1,14 @@
 ---
+- name: Activate Selinux
+  selinux: policy=targeted state=enforcing
+  sudo: yes
+
+- name: Activate FirewallD
+  service: name=firewalld state=started enabled=yes
+  sudo: yes
+
 - name: Create Taiga group
-  group: name=taiga state=present 
+  group: name=taiga state=present
   sudo: yes
 
 - name: Create Taiga User
@@ -8,7 +16,7 @@
   sudo: yes
 
 - name: Download Python
-  get_url: 
+  get_url:
     url=https://www.python.org/ftp/python/3.4.1/Python-3.4.1.tar.xz
     dest=/opt/Python-3.4.1.tar.xz
     mode=0644
@@ -52,5 +60,3 @@
     - psycopg2
   environment:
     PATH: /bin:/usr/pgsql-9.3/bin
-
-

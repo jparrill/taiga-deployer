@@ -6,7 +6,7 @@
 - name: Taiga Nginx Configuration
   template: src=taiga.conf dest=/etc/nginx/conf.d/taiga.conf owner=root group=root
   sudo: yes
-  
+
 - name: SElinux Packages
   yum: name={{ item }} state=latest
   sudo: yes
@@ -15,6 +15,10 @@
     - policycoreutils-python
     - libselinux
     - libselinux-utils
+
+- name: Firewall rules for 8001 port
+  shell: firewall-cmd --permanent --add-port 8001/tcp
+  sudo: yes
 
 - name: Firewall rules for http
   shell: firewall-cmd --permanent --add-service {{ scheme }}
