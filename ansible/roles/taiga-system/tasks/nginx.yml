@@ -16,6 +16,19 @@
     - libselinux
     - libselinux-utils
 
+- stat: path={{ frontend_path }}/.git
+  register: git_front
+
+- name: Firewall rules for http
+  shell: firewall-cmd --permanent --add-service {{ scheme }}
+  sudo: yes
+  notify:
+    - Firewall Reload
+
+- name: Selinux context for Taiga Logs
+  shell: semanage fcontext -a -t var_log_t "/home/taiga/logs(/.*)?"
+  sudo: yes
+
 - name: Selinux context for Taiga
   shell: semanage fcontext -a -t httpd_sys_content_t "/home/taiga(/.*)?"
   sudo: yes

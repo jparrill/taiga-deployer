@@ -1,8 +1,12 @@
 ---
+- stat: path={{ frontend_path }}/.git
+  register: git_front
+
 - name: Deploy Taiga-Frontend Source Code
   git: repo=https://github.com/taigaio/taiga-front-dist.git dest={{ frontend_path }} version=stable
   sudo: yes
   sudo_user: taiga
+  when: git_front.stat.exists == False
 
 - name: Taiga Frontend Config
   template: src=conf.json dest={{ frontend_path }}/dist/js/conf.json owner=taiga group=taiga

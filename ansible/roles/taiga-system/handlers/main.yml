@@ -2,3 +2,7 @@
 - name: Selinux Taiga Restore
   shell: restorecon -vvFR {{ taiga_path }}
   sudo: yes
+
+- name: Firewall Reload
+  shell: firewall-cmd --reload
+  sudo: yes

@@ -1,8 +1,15 @@
 ---
+- stat: path={{ backend_path }}/.git
+  register: git_back
+
 - name: Deploy Taiga Source Code
   git: repo=https://github.com/taigaio/taiga-back.git dest={{ backend_path }} version=stable
   sudo: yes
   sudo_user: taiga
+  when: git_back.stat.exists == False
+
+- stat: path={{ backend_path }}/.virtualenv
+  register: virtualenv
 
 - name: Make Taiga Virtualenv
   shell: virtualenv -p python3.4 .virtualenv
@@ -14,6 +21,7 @@
   environment:
     PATH: /bin:/usr/local-enable-shared/bin
     LD_LIBRARY_PATH: /usr/local-enable-shared/lib/
+  when: virtualenv.stat.exists == False
 
 - name: fixing permission
   file: path={{ backend_path }}/.virtualenv owner=taiga group=taiga mode=0755 recurse=yes
