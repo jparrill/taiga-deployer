@@ -1,6 +1,6 @@
 {
-    "api": "http://{{ host_fqdn }}/api/v1/",
-    "eventsUrl": "ws://{{ host_fqdn }}/events",
+    "api": "http://{{ host_fqdn }}:{{ taiga_port }}/api/v1/",
+    "eventsUrl": "ws://{{ host_fqdn }}:{{ taiga_port }}/events",
     "debug": "true",
     "publicRegisterEnabled": true,
     "feedbackEnabled": true,

@@ -9,3 +9,4 @@ virtualenv_dir: "{{ backend_path }}/.virtualenv"
 ## Setting
 host_fqdn: taiga.localdomain
 scheme: http
+port:80
