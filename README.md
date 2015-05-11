@@ -15,16 +15,24 @@ For now only in CentOS 7.X systems, soon on RHEL with correct subscriptions
 To test Taiga in a VM, just do the next
 
 ```sh
+# Add to hosts file in /etc/hosts an alias for 127.0.0.1 called taiga.localdomain
 git clone https://github.com/padajuan/taiga-deployer.git
 cd taiga-deployer/ansible
 vagrant up
 ```
+
+Now open your browser and call for http://taiga.localdomain:8080
+
+The username and password from fixtures are
+User: admin
+Pass: 123123
 
 Disclaimer: This Deployer is still in Beta and only tested in a VM
 
 
 ## Next steps
 - RHEL 7.X Systems
+- Https
 - Systemd service fixed (do not work propertly)
 - Better code, doc, steps to do manually
 - etc...
