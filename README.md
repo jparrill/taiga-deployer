@@ -24,8 +24,8 @@ vagrant up
 Now open your browser and call for http://taiga.localdomain:8080
 
 The username and password from fixtures are
-User: admin
-Pass: 123123
+- User: admin
+- Pass: 123123
 
 Disclaimer: This Deployer is still in Beta and only tested in a VM
 
