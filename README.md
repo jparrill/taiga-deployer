@@ -6,10 +6,7 @@ and with context fixed.
 
 I hope you like it ;)
 
-## Production Deploy
-Not yet...
-
-## Vagrant deploy
+## Vagrant deploy for testing 
 For now only in CentOS 7.X systems, soon on RHEL with correct subscriptions
 
 To test Taiga in a VM, just do the next
